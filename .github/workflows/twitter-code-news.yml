@@ -1,4 +1,4 @@
-name: Python application
+name: Twitter Code News
 
 on:
  schedule:
