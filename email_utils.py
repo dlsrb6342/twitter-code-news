@@ -6,8 +6,6 @@ import smtplib, datetime
 
 def connectSmtp():
     smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    smtp.starttls()
-    smtp.ehlo()
     smtp.login(gmail_credential['GMAIL_ID'], gmail_credential['GMAIL_PASSWORD'])
     return smtp
 
