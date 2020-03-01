@@ -2,7 +2,7 @@ import os
 
 
 # twitter credential
-twit_credential = {
+twitter_credential = {
     'TWITTER_APP_KEY': os.environ['TWITTER_APP_KEY'],
     'TWITTER_APP_SECRET': os.environ['TWITTER_APP_SECRET'],
     'TWITTER_OAUTH_TOKEN': os.environ['TWITTER_OAUTH_TOKEN'],

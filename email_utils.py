@@ -4,7 +4,7 @@ from credentials import gmail_credential
 import smtplib, datetime
 
 
-def connect_smtp():
+def connectSmtp():
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.ehlo()
     smtp.starttls()
@@ -12,7 +12,7 @@ def connect_smtp():
     return smtp
 
 
-def make_msg(tweets):
+def makeMsg(tweets):
     msg = MIMEMultipart()
     today = datetime.datetime.now()
     msg['Subject'] = f'Tweets. {today.strftime("%A %d. %B %Y")}'
@@ -26,7 +26,7 @@ def make_msg(tweets):
     return msg
 
 
-def send_email(smtp, msg):
+def sendEmail(smtp, msg):
     with open('./to_addr.txt') as f:
         content = f.readlines()
     to_addr = [x.strip() for x in content]
