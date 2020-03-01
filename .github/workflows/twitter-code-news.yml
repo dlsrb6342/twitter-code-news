@@ -2,7 +2,7 @@ name: Twitter Code News
 
 on:
  schedule:
-   - cron: '10 07 * * *'
+   - cron: '35 07 * * *'
 
 jobs:
   build:
