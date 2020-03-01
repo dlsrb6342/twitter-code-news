@@ -5,9 +5,9 @@ import smtplib, datetime
 
 
 def connectSmtp():
-    smtp = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp.ehlo()
+    smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     smtp.starttls()
+    smtp.ehlo()
     smtp.login(gmail_credential['GMAIL_ID'], gmail_credential['GMAIL_PASSWORD'])
     return smtp
 
@@ -33,5 +33,5 @@ def sendEmail(smtp, msg):
 
     for addr in to_addr:
         msg["To"] = addr
-        smtp.sendmail(email, addr, msg.as_string())
+        smtp.sendmail(gmail_credential['GMAIL_ID'], addr, msg.as_string())
 
