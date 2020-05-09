@@ -38,8 +38,7 @@ jobs:
         unset MODIFIED IS_MODIFIED
         if [ -z $(git status -s -uall) ]; then MODIFIED='true' ; fi
         echo "::set-output name=IS_MODIFIED::${MODIFIED}"
-    - name: Test
-      run: echo $IS_MODIFIED
+    - run: echo ${{steps.check_modified.outputs.IS_MODIFIED}}
     - name: Commit files
       if: steps.check_modified.outputs.IS_MODIFIED == 'true'
       run: |
