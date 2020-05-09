@@ -2,7 +2,7 @@ name: Twitter Code News
 
 on:
  schedule:
-   - cron: '00 03 * * *'
+   - cron: '00 06 * * *'
 
 jobs:
   build:
@@ -32,12 +32,20 @@ jobs:
         TWITTER_OAUTH_TOKEN_SECRET: ${{ secrets.TWITTER_OAUTH_TOKEN_SECRET }}
       run: |
         python ./main.py
+    - name: Check modified
+      id: check_modified
+      run: |
+        unset HAS_SECRET
+        if [ -z $(git status -s -uall) ]; then MODIFIED='true' ; fi
+        echo ::set-output name=IS_MODIFIED::${MODIFIED}
     - name: Commit files
+      if: steps.check_modified.outputs.IS_MODIFIED
       run: |
         git config --local user.email "dlsrb6342@gmail.com"
         git config --local user.name "dlsrb6342"
         git commit -m "Update last crwal time" -a
     - name: Push changes
+      if: steps.check_modified.outputs.IS_MODIFIED
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.HUB_TOKEN }}
