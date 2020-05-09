@@ -2,7 +2,7 @@ name: Twitter Code News
 
 on:
  schedule:
-   - cron: '00 06 * * *'
+   - cron: '15 06 * * *'
 
 jobs:
   build:
@@ -35,17 +35,19 @@ jobs:
     - name: Check modified
       id: check_modified
       run: |
-        unset MODIFIED
+        unset MODIFIED IS_MODIFIED
         if [ -z $(git status -s -uall) ]; then MODIFIED='true' ; fi
-        echo ::set-output name=IS_MODIFIED::${MODIFIED}
+        echo "::set-output name=IS_MODIFIED::${MODIFIED}"
+    - name: Test
+      run: echo $IS_MODIFIED
     - name: Commit files
-      if: steps.check_modified.outputs.IS_MODIFIED
+      if: steps.check_modified.outputs.IS_MODIFIED == 'true'
       run: |
         git config --local user.email "dlsrb6342@gmail.com"
         git config --local user.name "dlsrb6342"
         git commit -m "Update last crwal time" -a
     - name: Push changes
-      if: steps.check_modified.outputs.IS_MODIFIED
+      if: steps.check_modified.outputs.IS_MODIFIED == 'true'
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.HUB_TOKEN }}
