@@ -2,7 +2,7 @@ name: Twitter Code News
 
 on:
  schedule:
-   - cron: '15 06 * * *'
+   - cron: '30 06 * * *'
 
 jobs:
   build:
@@ -36,9 +36,8 @@ jobs:
       id: check_modified
       run: |
         unset MODIFIED IS_MODIFIED
-        if [ -z $(git status -s -uall) ]; then MODIFIED='true' ; fi
+        if [[ `git status --porcelain` ]]; then MODIFIED='true'; fi
         echo "::set-output name=IS_MODIFIED::${MODIFIED}"
-    - run: echo ${{steps.check_modified.outputs.IS_MODIFIED}}
     - name: Commit files
       if: steps.check_modified.outputs.IS_MODIFIED == 'true'
       run: |
