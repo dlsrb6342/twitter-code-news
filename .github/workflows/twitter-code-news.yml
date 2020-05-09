@@ -35,7 +35,7 @@ jobs:
     - name: Check modified
       id: check_modified
       run: |
-        unset HAS_SECRET
+        unset MODIFIED
         if [ -z $(git status -s -uall) ]; then MODIFIED='true' ; fi
         echo ::set-output name=IS_MODIFIED::${MODIFIED}
     - name: Commit files
