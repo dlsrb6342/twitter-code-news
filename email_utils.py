@@ -1,6 +1,7 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from credentials import gmail_credential
+from credentials import email_list
 import smtplib, datetime
 
 
@@ -25,11 +26,7 @@ def makeMsg(tweets):
 
 
 def sendEmail(smtp, msg):
-    with open('./to_addr.txt') as f:
-        content = f.readlines()
-    to_addr = [x.strip() for x in content]
-
-    for addr in to_addr:
+    for addr in email_list:
         msg["To"] = addr
         smtp.sendmail(gmail_credential['GMAIL_ID'], addr, msg.as_string())
 

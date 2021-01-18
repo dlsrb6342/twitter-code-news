@@ -8,9 +8,11 @@ twitter_credential = {
     'TWITTER_OAUTH_TOKEN': os.environ['TWITTER_OAUTH_TOKEN'],
     'TWITTER_OAUTH_TOKEN_SECRET': os.environ['TWITTER_OAUTH_TOKEN_SECRET']
 }
-# gmail credential
 
+# gmail credential
 gmail_credential = {
     'GMAIL_ID': os.environ['GMAIL_ID'],
     'GMAIL_PASSWORD': os.environ['GMAIL_PASSWORD']
 }
+
+email_list = os.environ['EMAIL_LIST'].split(',')
