@@ -30,6 +30,7 @@ jobs:
         TWITTER_APP_SECRET: ${{ secrets.TWITTER_APP_SECRET }}
         TWITTER_OAUTH_TOKEN: ${{ secrets.TWITTER_OAUTH_TOKEN }}
         TWITTER_OAUTH_TOKEN_SECRET: ${{ secrets.TWITTER_OAUTH_TOKEN_SECRET }}
+        EMAIL_LIST: ${{ secrets.EMAIL_LIST }}
       run: |
         python ./main.py
     - name: Check modified
