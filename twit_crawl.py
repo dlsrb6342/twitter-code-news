@@ -11,7 +11,7 @@ def getTweets():
             twitter_credential['TWITTER_OAUTH_TOKEN_SECRET'])
 
     response = requests.request(
-            "GET", 'https://api.twitter.com/1.1/favorites/list.json', 
+            "GET", 'https://api.twitter.com/1.1/statuses/user_timeline.json',
             params = { 'count': 50 }, auth = auth)
 
     tweets = list()
