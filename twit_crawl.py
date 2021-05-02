@@ -33,16 +33,10 @@ def getTweets():
 
 
 def filterTweets(tweets):
-    with open('./last_crawl.txt', 'r') as f:
-        last_crawl = f.read()
-    last_crawl = last_crawl.strip()
-    last_crawl_datetime = datetime.datetime.strptime(last_crawl, '%a %b %d %H:%M:%S %z %Y')
-    return list(filter(lambda t: t['created_at'] > last_crawl_datetime, tweets))
-
-
-def setLastCrawl(tweet):
-    with open('./last_crawl.txt', 'w') as f:
-        f.write(tweet['created_at_string'])
+    today = today = datetime.datetime.today()
+                            .replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=datetime.timezone.utc)
+    yesterday = today - datetime.timedelta(days=1)
+    return list(filter(lambda t: t['created_at'] >= yesterday and t['created_at'] <= today, tweets))
 
 
 def crawlTweets():
@@ -51,7 +45,6 @@ def crawlTweets():
     if len(filtered_tweets) == 0:
         sys.exit()
 
-    setLastCrawl(filtered_tweets[0])
     smtp = connectSmtp()
     msg = makeMsg(filtered_tweets)
     sendEmail(smtp, msg)

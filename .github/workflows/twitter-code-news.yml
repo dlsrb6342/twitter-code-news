@@ -6,9 +6,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
       with:
@@ -33,21 +31,4 @@ jobs:
         EMAIL_LIST: ${{ secrets.EMAIL_LIST }}
       run: |
         python ./main.py
-    - name: Check modified
-      id: check_modified
-      run: |
-        unset MODIFIED IS_MODIFIED
-        if [[ `git status --porcelain` ]]; then MODIFIED='true'; fi
-        echo "::set-output name=IS_MODIFIED::${MODIFIED}"
-    - name: Commit files
-      if: steps.check_modified.outputs.IS_MODIFIED == 'true'
-      run: |
-        git config --local user.email "dlsrb6342@gmail.com"
-        git config --local user.name "dlsrb6342"
-        git commit -m "Update last crwal time" -a
-    - name: Push changes
-      if: steps.check_modified.outputs.IS_MODIFIED == 'true'
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.HUB_TOKEN }}
-        branch: main
+
