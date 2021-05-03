@@ -33,8 +33,8 @@ def getTweets():
 
 
 def filterTweets(tweets):
-    today = today = datetime.datetime.today()
-                            .replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=datetime.timezone.utc)
+    today = datetime.datetime.today() \
+                    .replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=datetime.timezone.utc)
     yesterday = today - datetime.timedelta(days=1)
     return list(filter(lambda t: t['created_at'] >= yesterday and t['created_at'] <= today, tweets))
 
